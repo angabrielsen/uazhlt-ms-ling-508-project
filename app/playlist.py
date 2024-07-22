@@ -1,4 +1,4 @@
-from track import Track
+from app.track import *
 
 class Playlist:
     def __init__(self, id, user_id, name, tracks=None):
