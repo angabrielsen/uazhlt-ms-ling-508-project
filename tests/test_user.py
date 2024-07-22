@@ -1,5 +1,5 @@
 import pytest
-from user import User
+from app.user import *
 
 def test_user_creation():
     user = User('john_doe', 'john@example.com')
