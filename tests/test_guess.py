@@ -1,5 +1,5 @@
 import pytest
-from app.guess import *
+from models.guess import *
 
 def test_guess_creation():
     guess = Guess('Hypnotized', 'Purple Disco Machine')

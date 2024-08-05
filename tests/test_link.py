@@ -1,5 +1,5 @@
 import pytest
-from app.link import *
+from models.link import *
 
 def test_valid_link():
     link = Link('http://www.reddit.com/r/music/some-post')

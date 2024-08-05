@@ -1,5 +1,4 @@
-import pytest
-from app.user import *
+from models.user import *
 
 def test_user_creation():
     user = User('john_doe', 'john@example.com')

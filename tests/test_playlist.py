@@ -1,6 +1,6 @@
 import pytest
 from models.playlist import Playlist
-from app.track import Track
+from models.track import Track
 from services.playlist_service import PlaylistService
 
 def test_playlist_creation():

@@ -1,5 +1,5 @@
 import pytest
-from app.track import Track
+from models.track import Track
 
 def test_track_creation():
     track = Track(1, 'Hypnotized', 'Purple Disco Machine', 'spotify:track:0OeFuOAu0P1ONYz5EDdqb2')
