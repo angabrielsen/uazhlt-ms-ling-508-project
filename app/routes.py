@@ -7,8 +7,8 @@ app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-client_id = "***"
-client_secret = "***"
+client_id = "s4nirayGdTiyWS7V7ygF0A"
+client_secret = "GKl8EAkOgHipOnO7ZYC1-jHeomgQMg"
 user_agent = "/r/musicmaker/0.1 by Ancient-Party-1164"
 
 @app.route('/get_comments', methods=['POST'])

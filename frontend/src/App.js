@@ -10,9 +10,9 @@ const App = () => {
 
     try {
       const response = await fetch('http://localhost:5000/get_comments', {
-        method: 'POST', // Change to POST for sending JSON data
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url }), // Send url in JSON body
+        body: JSON.stringify({ url })
       });
 
       if (!response.ok) {
@@ -41,7 +41,7 @@ const App = () => {
           type="text"
           id="url"
           value={url}
-          onChange={(e) => setUrl(e.target.value)} // Update state with input value
+          onChange={(e) => setUrl(e.target.value)}
           placeholder="Enter URL here"
           required
         />
