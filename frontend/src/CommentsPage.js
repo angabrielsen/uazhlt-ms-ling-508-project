@@ -15,7 +15,7 @@ const CommentsPage = () => {
           throw new Error(`Network response was not ok: ${errorText}`);
         }
         const result = await response.json();
-        setComments(result.comments); // Adjust based on actual response structure
+        setComments(result.comments);
       } catch (err) {
         setError(err.message);
       }
