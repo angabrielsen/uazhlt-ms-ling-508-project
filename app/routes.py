@@ -5,6 +5,7 @@ import re
 import os
 from dotenv import load_dotenv
 from services.submission_service import SubmissionService
+from services.comment_service import CommentService
 
 load_dotenv()
 
@@ -14,6 +15,15 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 client_id = os.getenv('CLIENT_ID')
 client_secret = os.getenv('CLIENT_SECRET')
 user_agent = os.getenv('USER_AGENT')
+
+@app.route('/submissions', methods=['GET'])
+def get_all_submissions():
+    try:
+        submissions = SubmissionService.fetch_all_submissions()
+        return jsonify(submissions)
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 
 @app.route('/get_comments', methods=['POST'])
 def get_comments():
@@ -35,11 +45,14 @@ def get_comments():
             return jsonify({"error": "Invalid URL format"}), 400
 
         submission = reddit.submission(id=submission_id)
+        title = submission.title
         top_level_comments = [comment.body for comment in submission.comments if not isinstance(comment, praw.models.MoreComments)]
 
-        SubmissionService.save_submission(submission_id, url)
+        SubmissionService.save_submission(submission_id, url, title)
 
-        return jsonify(top_level_comments)
+        CommentService.save_comments(submission_id, top_level_comments)
+
+        return jsonify({"title": title, "comments": top_level_comments})
 
     except praw.exceptions.RedditAPIException as e:
         print(f"Reddit API error: {str(e)}")

@@ -24,7 +24,8 @@ class MysqlRepository:
             CREATE TABLE IF NOT EXISTS submissions (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 submission_id VARCHAR(255) UNIQUE NOT NULL,
-                url VARCHAR(255) NOT NULL
+                url VARCHAR(255) NOT NULL,
+                title VARCHAR(255) NOT NULL
             )
         """)
 
@@ -49,7 +50,19 @@ class MysqlRepository:
         result = self.cursor.fetchall()
         return result
 
-    def save_submission(self, submission_id, url):
-        query = "INSERT INTO submissions (submission_id, url) VALUES (%s, %s)"
-        self.cursor.execute(query, (submission_id, url))
+    def save_submission(self, submission_id, url, title):
+        query = """
+            INSERT INTO submissions (submission_id, url, title)
+            VALUES (%s, %s, %s)
+            ON DUPLICATE KEY UPDATE url = VALUES(url), title = VALUES(title)
+        """
+        self.cursor.execute(query, (submission_id, url, title))
+        self.connection.commit()
+
+    def save_comment(self, comment):
+        query = """
+            INSERT INTO comments (submission_id, comment_text)
+            VALUES (%s, %s)
+        """
+        self.cursor.execute(query, (comment.submission_id, comment.comment_text))
         self.connection.commit()
