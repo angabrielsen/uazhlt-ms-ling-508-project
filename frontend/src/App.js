@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './HomePage';
-import Comments from './CommentsPage';
+import HomePage from './HomePage'; // Make sure this matches the filename
+import CommentsPage from './CommentsPage'; // Make sure this matches the filename
 
 const App = () => (
   <Router>
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/comments/:id" element={<Comments />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/comments/:id" element={<CommentsPage />} />
     </Routes>
   </Router>
 );

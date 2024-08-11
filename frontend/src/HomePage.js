@@ -6,6 +6,7 @@ const HomePage = () => {
   const [url, setUrl] = useState('');
   const [error, setError] = useState(null);
 
+  // Function to fetch the list of all submissions
   const fetchSubmissions = async () => {
     try {
       const response = await fetch('http://localhost:5000/submissions');
@@ -14,16 +15,18 @@ const HomePage = () => {
         throw new Error(`Network response was not ok: ${errorText}`);
       }
       const result = await response.json();
-      setSubmissions(result);
+      setSubmissions(result); // Update the state with the result
     } catch (err) {
       setError(err.message);
     }
   };
 
+  // Fetch submissions on component mount
   useEffect(() => {
     fetchSubmissions();
   }, []);
 
+  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -39,10 +42,9 @@ const HomePage = () => {
         throw new Error(`Network response was not ok: ${errorText}`);
       }
 
-      const result = await response.json();
-      setUrl('');
-
-      fetchSubmissions();
+      await response.json(); // Process the response if needed
+      setUrl(''); // Clear the URL input
+      fetchSubmissions(); // Refresh the submissions list
 
     } catch (err) {
       setError(err.message);
