@@ -58,3 +58,11 @@ class MysqlRepository:
         """
         self.cursor.execute(query, (submission_id, url, title))
         self.connection.commit()
+
+    def save_comment(self, comment):
+        query = """
+            INSERT INTO comments (submission_id, comment_text)
+            VALUES (%s, %s)
+        """
+        self.cursor.execute(query, (comment.submission_id, comment.comment_text))
+        self.connection.commit()

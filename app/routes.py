@@ -5,6 +5,7 @@ import re
 import os
 from dotenv import load_dotenv
 from services.submission_service import SubmissionService
+from services.comment_service import CommentService
 
 load_dotenv()
 
@@ -44,10 +45,12 @@ def get_comments():
             return jsonify({"error": "Invalid URL format"}), 400
 
         submission = reddit.submission(id=submission_id)
-        title = submission.title  # Get the title of the post
+        title = submission.title
         top_level_comments = [comment.body for comment in submission.comments if not isinstance(comment, praw.models.MoreComments)]
 
         SubmissionService.save_submission(submission_id, url, title)
+
+        CommentService.save_comments(submission_id, top_level_comments)
 
         return jsonify({"title": title, "comments": top_level_comments})
 
