@@ -37,7 +37,6 @@ def get_comments():
         submission = reddit.submission(id=submission_id)
         top_level_comments = [comment.body for comment in submission.comments if not isinstance(comment, praw.models.MoreComments)]
 
-        # Save the submission to the database
         SubmissionService.save_submission(submission_id, url)
 
         return jsonify(top_level_comments)
