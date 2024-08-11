@@ -1,33 +1,16 @@
-CREATE DATABASE r_music_maker;
-ALTER DATABASE r_music_maker CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-use r_music_maker;
+CREATE DATABASE IF NOT EXISTS r_music_maker;
 
-CREATE TABLE tracks (
-    id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    artist_name VARCHAR(255) NOT NULL,
-    uri VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
+USE r_music_maker;
+
+CREATE TABLE IF NOT EXISTS submissions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    submission_id VARCHAR(255) UNIQUE NOT NULL,
+    url VARCHAR(255) NOT NULL
 );
 
-INSERT INTO tracks
-    (name, artist_name, uri)
-VALUES
-    ('Hypnotized', 'Purple Disco Machine', 'spotify:track:0OeFuOAu0P1ONYz5EDdqb2'),
-    ('Aquaman', 'WALK THE MOON', 'spotify:track:71wT7aMCFPYfzutF66OLac')
-;
-
-CREATE TABLE playlists (
-    id INT NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE playlist_tracks (
-    playlist_id INT NOT NULL,
-    track_id INT NOT NULL,
-    FOREIGN KEY (playlist_id) REFERENCES playlists(id) ON DELETE CASCADE,
-    FOREIGN KEY (track_id) REFERENCES tracks(id) ON DELETE CASCADE,
-    PRIMARY KEY (playlist_id, track_id)
+CREATE TABLE IF NOT EXISTS comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    submission_id VARCHAR(255),
+    comment_text VARCHAR(1000),
+    FOREIGN KEY (submission_id) REFERENCES submissions(submission_id)
 );
