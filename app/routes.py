@@ -62,5 +62,15 @@ def get_comments():
         print(f"Unexpected error: {str(e)}")
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 
+@app.route('/get_comments/<submission_id>', methods=['GET'])
+def get_comments_by_id(submission_id):
+    try:
+        comments = CommentService.fetch_comments_by_submission_id(submission_id)
+        return jsonify({"comments": comments})
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
+
 if __name__ == '__main__':
     app.run(debug=True)

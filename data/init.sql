@@ -12,6 +12,6 @@ CREATE TABLE IF NOT EXISTS submissions (
 CREATE TABLE IF NOT EXISTS comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     submission_id VARCHAR(255),
-    comment_text VARCHAR(1000),
+    comment_text TEXT,
     FOREIGN KEY (submission_id) REFERENCES submissions(submission_id)
 );

@@ -15,9 +15,10 @@ class CommentService:
             raise
 
     @staticmethod
-    def fetch_all_comments():
+    def fetch_comments_by_submission_id(submission_id):
         try:
-            return CommentService.repository.fetch_all_comments()
+            repo = MysqlRepository()
+            comments = repo.fetch_comments_by_submission_id(submission_id)
+            return comments
         except Exception as e:
-            print(f"Database error: {str(e)}")
-            raise
+            raise Exception(f"Error fetching comments: {str(e)}")
