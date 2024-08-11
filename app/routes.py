@@ -2,14 +2,18 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import praw
 import re
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-client_id = "s4nirayGdTiyWS7V7ygF0A"
-client_secret = "GKl8EAkOgHipOnO7ZYC1-jHeomgQMg"
-user_agent = "/r/musicmaker/0.1 by Ancient-Party-1164"
+client_id = os.getenv('CLIENT_ID')
+client_secret = os.getenv('CLIENT_SECRET')
+user_agent = os.getenv('USER_AGENT')
 
 @app.route('/get_comments', methods=['POST'])
 def get_comments():
