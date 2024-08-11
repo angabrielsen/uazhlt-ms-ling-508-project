@@ -4,11 +4,11 @@ import praw
 import re
 import os
 from dotenv import load_dotenv
+from services.submission_service import SubmissionService
 
 load_dotenv()
 
 app = Flask(__name__)
-
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 client_id = os.getenv('CLIENT_ID')
@@ -37,11 +37,17 @@ def get_comments():
         submission = reddit.submission(id=submission_id)
         top_level_comments = [comment.body for comment in submission.comments if not isinstance(comment, praw.models.MoreComments)]
 
+        SubmissionService.save_submission(submission_id, url)
+
         return jsonify(top_level_comments)
 
-    except (praw.exceptions.RedditAPIException, Exception) as e:
-        print(f"Error retrieving comments: {str(e)}")
-        return jsonify({"error": f"Error retrieving comments: {str(e)}"}), 500
+    except praw.exceptions.RedditAPIException as e:
+        print(f"Reddit API error: {str(e)}")
+        return jsonify({"error": f"Reddit API error: {str(e)}"}), 500
+
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

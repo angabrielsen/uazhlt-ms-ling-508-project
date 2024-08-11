@@ -1,2 +1,5 @@
 pytest
 mysql-connector
+os
+dotenv
+re
