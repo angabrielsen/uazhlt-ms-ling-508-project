@@ -15,6 +15,15 @@ client_id = os.getenv('CLIENT_ID')
 client_secret = os.getenv('CLIENT_SECRET')
 user_agent = os.getenv('USER_AGENT')
 
+@app.route('/submissions', methods=['GET'])
+def get_all_submissions():
+    try:
+        submissions = SubmissionService.fetch_all_submissions()
+        return jsonify(submissions)
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
 @app.route('/get_comments', methods=['POST'])
 def get_comments():
     url = request.json.get('url')

@@ -1,64 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const App = () => {
-  const [url, setUrl] = useState('');
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/submissions');
 
-    try {
-      const response = await fetch('http://localhost:5000/get_comments', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url })
-      });
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Network response was not ok: ${errorText}`);
+        }
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Network response was not ok: ${errorText}`);
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err.message);
       }
+    };
 
-      const result = await response.json();
-      setData(result);
-      setError(null);
-    } catch (err) {
-      setError(err.message);
-      setData(null);
-    }
-  };
+    fetchData();
+  }, []); // Empty dependency array means this effect runs once when the component mounts
 
   return (
     <div className="App">
       <h1>Welcome to /r/Music Maker</h1>
       <p>Turn your favorite /r/music posts into playlists!</p>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="url">Enter URL:</label>
-        <input
-          type="text"
-          id="url"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="Enter URL here"
-          required
-        />
-        <button type="submit">Submit</button>
-      </form>
+      {error && <p>Error: {error}</p>}
 
-      {data && (
+      {data.length > 0 ? (
         <div>
-          <h2>Title: {data.title}</h2>
-          <h3>Comments:</h3>
+          <h2>All Submissions</h2>
           <ul>
-            {data.comments.map((comment, index) => (
-              <li key={index}>{comment}</li>
+            {data.map((submission, index) => (
+                <li key={index}>
+                  <a href={submission.url} target="_blank" rel="noopener noreferrer">
+                    <strong>{submission.title}</strong>
+                  </a>
+                </li>
             ))}
           </ul>
         </div>
+      ) : (
+          <p>No submissions found.</p>
       )}
-      {error && <p>Error: {error}</p>}
     </div>
   );
 };
