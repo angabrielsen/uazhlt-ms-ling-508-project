@@ -35,11 +35,12 @@ def get_comments():
             return jsonify({"error": "Invalid URL format"}), 400
 
         submission = reddit.submission(id=submission_id)
+        title = submission.title  # Get the title of the post
         top_level_comments = [comment.body for comment in submission.comments if not isinstance(comment, praw.models.MoreComments)]
 
-        SubmissionService.save_submission(submission_id, url)
+        SubmissionService.save_submission(submission_id, url, title)
 
-        return jsonify(top_level_comments)
+        return jsonify({"title": title, "comments": top_level_comments})
 
     except praw.exceptions.RedditAPIException as e:
         print(f"Reddit API error: {str(e)}")

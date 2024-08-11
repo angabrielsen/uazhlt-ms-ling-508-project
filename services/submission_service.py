@@ -5,9 +5,9 @@ class SubmissionService:
     repository = MysqlRepository()
 
     @staticmethod
-    def save_submission(submission_id, url):
+    def save_submission(submission_id, url, title):
         try:
-            SubmissionService.repository.save_submission(submission_id, url)
+            SubmissionService.repository.save_submission(submission_id, url, title)
         except mysql.connector.Error as e:
             print(f"Database error: {str(e)}")
             raise

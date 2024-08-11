@@ -34,7 +34,6 @@ const App = () => {
       <h1>Welcome to /r/Music Maker</h1>
       <p>Turn your favorite /r/music posts into playlists!</p>
 
-      {/* Simple Form */}
       <form onSubmit={handleSubmit}>
         <label htmlFor="url">Enter URL:</label>
         <input
@@ -48,7 +47,17 @@ const App = () => {
         <button type="submit">Submit</button>
       </form>
 
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      {data && (
+        <div>
+          <h2>Title: {data.title}</h2>
+          <h3>Comments:</h3>
+          <ul>
+            {data.comments.map((comment, index) => (
+              <li key={index}>{comment}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       {error && <p>Error: {error}</p>}
     </div>
   );
