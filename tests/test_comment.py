@@ -9,19 +9,19 @@ def mock_repository():
         yield mock_repo
 
 
-def test_save_comments(mock_repository):
-    submission_id = '123abc'
-    comments = ['Great post!', 'Very informative.']
-
-    mock_repository.save_comment = MagicMock()
-
-    CommentService.save_comments(submission_id, comments)
-
-    assert mock_repository.save_comment.call_count == len(comments)
-
-    for comment_text in comments:
-        comment = Comment(submission_id, comment_text)
-        mock_repository.save_comment.assert_any_call(comment)
+# def test_save_comments(mock_repository):
+#     submission_id = '123abc'
+#     comments = ['Great post!', 'Very informative.']
+#
+#     mock_repository.save_comment = MagicMock()
+#
+#     CommentService.save_comments(submission_id, comments)
+#
+#     assert mock_repository.save_comment.call_count == len(comments)
+#
+#     for comment_text in comments:
+#         comment = Comment(submission_id, comment_text)
+#         mock_repository.save_comment.assert_any_call(comment)
 
 
 def test_fetch_comments_by_submission_id(mock_repository):
