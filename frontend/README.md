@@ -69,11 +69,15 @@ This project is a Flask application that interacts with Reddit's API to fetch an
 
     - **Description:** Submit a URL from Reddit (e.g., a URL from `/r/music`) to retrieve comments for that post.
 
-    - **Example URL:** 
+- **Example URL:** 
 
-        ```url
-        https://www.reddit.com/r/Music/comments/17a2a6l/whats_a_song_that_makes_you_misty_eyed/
-        ```
+    ```url
+    https://www.reddit.com/r/Music/comments/17a2a6l/whats_a_song_that_makes_you_misty_eyed/
+  
+  https://www.reddit.com/r/Music/comments/18bqzgy/what_song_did_you_discover_from_a_sample_that/
+  
+  https://www.reddit.com/r/Music/comments/1dd5a4e/what_song_did_you_love_only_to_realize_at_a_later/
+    ```
 
 ## Contributing
 
