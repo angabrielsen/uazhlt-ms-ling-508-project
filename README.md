@@ -16,14 +16,6 @@ This project is a Flask application that interacts with Reddit's API to fetch an
 
 1. **Docker and Docker Compose**: Ensure you have Docker and Docker Compose installed. You can download Docker Desktop from [Docker's website](https://www.docker.com/products/docker-desktop).
 
-2. **Environment Variables**: Create a `.env` file in the root directory with the following content:
-   This file is provided on the assignment submission.
-    ```env
-    CLIENT_ID=your_reddit_client_id
-    CLIENT_SECRET=your_reddit_client_secret
-    USER_AGENT=your_user_agent
-    ```
-
 ### Setup and Installation
 
 1. **Clone the Repository**
@@ -33,13 +25,21 @@ This project is a Flask application that interacts with Reddit's API to fetch an
     cd uazhlt-ms-ling-508-project
     ```
 
-2. **Build and Start the Containers**
+ 2. **Environment Variables**: Create a `.env` file in the root directory with the following content:
+   This file is provided on the assignment submission.
+    ```env
+    CLIENT_ID=your_reddit_client_id
+    CLIENT_SECRET=your_reddit_client_secret
+    USER_AGENT=your_user_agent
+    ```
+
+3. **Build and Start the Containers**
 
     ```bash
     docker compose up -d --build
     ```
 
-3. **Start the Flask Application**
+4. **Start the Flask Application**
 
     ```bash
     flask run
