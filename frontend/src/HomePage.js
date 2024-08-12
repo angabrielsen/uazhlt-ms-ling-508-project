@@ -14,7 +14,7 @@ const HomePage = () => {
         throw new Error(`Network response was not ok: ${errorText}`);
       }
       const result = await response.json();
-      setSubmissions(result); // Update the state with the result
+      setSubmissions(result);
     } catch (err) {
       setError(err.message);
     }
