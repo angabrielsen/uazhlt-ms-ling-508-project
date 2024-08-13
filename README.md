@@ -48,6 +48,7 @@ This project is a Flask application that interacts with Reddit's API to fetch an
 5. **Start the Flask Application**
 
     ```bash
+    // run in the root dir
     flask run
     ```
 
