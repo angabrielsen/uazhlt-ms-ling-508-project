@@ -38,8 +38,14 @@ This project is a Flask application that interacts with Reddit's API to fetch an
     ```bash
     docker compose up -d --build
     ```
+4. **Build the Frontend**
 
-4. **Start the Flask Application**
+    ```bash
+    cd frontend
+    npm install
+    ```
+
+5. **Start the Flask Application**
 
     ```bash
     flask run
